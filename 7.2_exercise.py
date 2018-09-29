@@ -24,7 +24,7 @@ class Store:
     def store_details(store):
         # Return a string representing the argument
         # It should be in the format 'NAME, total stock price: TOTAL'
-        return store.name + ", total stock price: " + str(store.stock_price())
+        return "{}, total stock price: {}".format(store.name, int(store.stock_price()))
 
 
 store = Store("Test")
