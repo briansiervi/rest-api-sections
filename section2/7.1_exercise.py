@@ -7,11 +7,7 @@ class Store:
         self.items.append({"name": name, "price": price})
 
     def stock_price(self):
-        total = 0
-        for item in self.items:
-            total += item["price"]
-
-        return total
+        return sum([item["price"] for item in self.items])
 
 store = Store("Python store")
 store.add_item("apple",12.0)
