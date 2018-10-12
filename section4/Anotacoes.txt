@@ -1,11 +1,11 @@
-/*Descobrir diretório de instalação do python no windows*/
+/*Descobrir diretorio de instalacoo do python no windows*/
 #fonte: https://stackoverflow.com/questions/647515/how-can-i-find-where-python-is-installed-on-windows
 
 >>> import os
 >>> import sys
 >>> os.path.dirname(sys.executable)
 
-/*Configurar python nas variáveis de ambiente*/
+/*Configurar python nas variaveis de ambiente*/
 #fonte: https://docs.python.org/3/using/windows.html#using-on-windows
 C:\>set PATH=caminhoMostradoAcima;%PATH%
 
@@ -15,3 +15,18 @@ python -m venv C:\Workspace\Udemy\rsection4est-api-sections\section4
 
 /*Ativar venv*/
 cmd.exe .\Scripts\activate.bat
+
+/*Configurar virtual enviroment no linux*/
+sudo virtualenv --no-site-packages -p python3.6 venvlinux
+
+/*Ativar venv*/
+source ./venvlinux/bin/activate
+
+/*Compartilhar dependencias entre ambientes virtuais*/
+#fonte: https://stackoverflow.com/questions/42733542/how-to-use-the-same-python-virtualenv-on-both-windows-and-linux
+
+pip freeze > requirements.txt
+
+python -m venv env
+source env/bin/activate
+pip install -r requirements.txt  # Install all the libs.
