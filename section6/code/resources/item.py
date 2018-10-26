@@ -20,42 +20,37 @@ class Item(Resource):
         return {'message': 'Item not found'}, 404
 
     def post(self, name):
-        print(name)
         if ItemModel.find_by_name(name):
-            return {'message': "An item with name '{}' already exists.".format(name)}, 400
+            return {'message': 'An item with name "{}" already exists'.format(name)}, 400
 
         data = Item.parser.parse_args()
 
-        item = ItemModel (name, data['price'])
+        item = ItemModel(name, data['price'])
 
         try:
-            item.save_to_db()
+            item.insert()
         except:
-            return {"message": "An error occurred inserting the item."}, 500
+            return {"message": "An error occured inserting the item."}, 500 #Internal Error Server
 
-        return item.json(), 201
-
-    def delete(self, name):
-        item = ItemModel.find_by_name(name)
-        if item:
-            item.delete_from_db()
-            return {'message': 'Item deleted.'}
-        return {'message': 'Item not found.'}, 404
+        return item.json()
 
     def put(self, name):
         data = Item.parser.parse_args()
 
         item = ItemModel.find_by_name(name)
+        updated_item = ItemModel(name, data['price'])
 
-        if item:
-            item.price = data['price']
+        if item is None:
+            try:
+                updated_item.insert()
+            except:
+                return {"message": "An error occured inserting the item."}, 500 #Internal Error
         else:
-            item = ItemModel(name, **data)
-
-        item.save_to_db()
-
-        return item.json()
-
+            try:
+                updated_item.update()
+            except:
+                return {"message": "An error occured updating the item."}, 500 #Internal Error
+        return updated_item.json()
 
 class ItemList(Resource):
     def get(self):
