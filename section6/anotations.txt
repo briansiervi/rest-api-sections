@@ -1,0 +1,21 @@
+#Configurar virtual enviroment
+fonte: https://docs.python.org/3/using/windows.html#using-on-windows
+python -m venv C:\Workspace\Udemy\rest-api-sections\section6\venvwindows
+
+
+#Compartilhar dependencias entre ambientes virtuais
+fonte: https://stackoverflow.com/questions/42733542/how-to-use-the-same-python-virtualenv-on-both-windows-and-linux
+
+pip freeze > requirements.txt
+
+##linux
+python -m venv env
+source env/bin/activate
+
+##windows
+.\Scripts\activate.ps1
+
+pip install -r requirements.txt  # Install all the libs.
+
+#Run server
+python.exe .\code\app.py runserver
